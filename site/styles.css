@@ -455,7 +455,7 @@ p {
 }
 
 .panel-top,
-.system-panel > * {
+.system-panel>* {
   position: relative;
 }
 
@@ -984,6 +984,7 @@ p {
 }
 
 @keyframes scan {
+
   0%,
   100% {
     top: 18%;
@@ -1139,6 +1140,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
