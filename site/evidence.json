@@ -1,0 +1,23 @@
+[
+    {
+        "category": "documentation",
+        "group": "GitHub Profile",
+        "title": "GitHub Profile Overview",
+        "caption": "GitHub profile overview showing username Silva051111.",
+        "image": "assets/screenshots/screenshot-1.png"
+    },
+    {
+        "category": "firebase",
+        "group": "GitHub Repository",
+        "title": "Repository Contribution Activity",
+        "caption": "Repository contribution activity showing commit frequency and history.",
+        "image": "assets/screenshots/screenshot-2.png"
+    },
+    {
+        "category": "firebase",
+        "group": "GitHub Commits",
+        "title": "Commit/Activity Evidence",
+        "caption": "Commit and activity evidence showing contributions to the project.",
+        "image": "assets/screenshots/screenshot-3.png"
+    }
+]

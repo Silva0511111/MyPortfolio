@@ -1,0 +1,16 @@
+contribution-flow.local.md
+.env
+.venv/
+.vscode/
+__pycache__/
+*.pyc
+build/
+dist/
+.flet/
+private-docs/
+.env.local
+*.token
+tokens.txt
+gittoken.txt
+token.txt
+**/__pycache__/
