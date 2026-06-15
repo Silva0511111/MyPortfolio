@@ -1,10 +1,9 @@
-name: Deploy Flet Portfolio to GitHub Pages
+name: Deploy Portfolio to GitHub Pages
 
 on:
   push:
     branches:
       - main
-      - master
   workflow_dispatch:
 
 permissions:
@@ -17,29 +16,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build Flet web app
+  deploy:
+    name: Deploy static portfolio
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          elif [ -f pyproject.toml ]; then
-            pip install .
-          else
-            pip install flet
-          fi
 
       - name: Sync portfolio assets
         run: |
@@ -49,14 +35,11 @@ jobs:
             echo "No sync_assets.py found, skipping asset sync."
           fi
 
-      - name: Build Flet web app
+      - name: Verify static site
         run: |
-          flet build web --yes --verbose --no-rich-output --skip-flutter-doctor --base-url MyPortfolio --route-url-strategy hash
-
-      - name: Verify build output
-        run: |
-          test -f build/web/index.html
-          echo "Build output verified."
+          test -f site/index.html
+          echo "site/index.html found"
+          find site -maxdepth 3 -type f | head -50
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -64,17 +47,8 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: site
 
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
